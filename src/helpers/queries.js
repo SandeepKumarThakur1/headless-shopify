@@ -1,6 +1,7 @@
+// Fetch multiple products
 export const PRODUCTS_QUERY = `
-  {
-    products(first: 10) {
+  query getProducts($first: Int = 12, $sortKey: ProductSortKeys = CREATED_AT, $reverse: Boolean = true) {
+    products(first: $first, sortKey: $sortKey, reverse: $reverse) {
       edges {
         node {
           id
@@ -15,13 +16,23 @@ export const PRODUCTS_QUERY = `
               }
             }
           }
+          variants(first: 1) {
+            edges {
+              node {
+                price {
+                  amount
+                  currencyCode
+                }
+              }
+            }
+          }
         }
       }
     }
   }
 `;
 
-
+// Fetch single product by handle
 export const SINGLE_PRODUCT_QUERY = `
   query getProduct($handle: String!) {
     productByHandle(handle: $handle) {

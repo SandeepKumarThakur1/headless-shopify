@@ -1,51 +1,53 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from "react";
-import ProductCard from "./ProductCard";
-import { PRODUCTS_QUERY } from "@/lib/queries";
-import { shopifyClient } from "@/lib/shopify";
+import ErrorMessage from "@/components/shared/ErrorMessage";
+import Loader from "@/components/shared/Loader";
+import { useProducts } from "@/hooks/useProducts";
+import ProductGrid from "./ProductGrid";
+import Link from "next/link";
 
-const Products = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const data = await shopifyClient.request(PRODUCTS_QUERY);
-
-        const formattedProducts = data.products.edges.map(({ node }) => ({
-          id: node.id,
-          title: node.title,
-          description: node.description,
-          handle: node.handle,
-          image: node.images.edges[0]?.node.src || "",
-          altText: node.images.edges[0]?.node.altText || "",
-        }));
-
-        setProducts(formattedProducts);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
-  if (loading) return <p>Loading products...</p>;
+export default function ShopPage() {
+  const { products, loading, error } = useProducts(20);
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-12">
-      <h1 className="text-3xl font-bold mb-8">All Products</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-r from-black via-gray-900 to-green-700 rounded-2xl p-10 text-white mb-12 shadow-xl">
+        <h1 className="text-4xl font-bold mb-4">🛍️ Discover Our Collection</h1>
+        <p className="text-lg max-w-2xl mb-6">
+          Explore the best hand-picked products crafted with quality and care.
+          Shop confidently and find something unique just for you!
+        </p>
+        <Link href="/products">
+          <button className="cursor-pointer px-6 py-3 bg-white text-black font-semibold rounded-xl shadow hover:bg-gray-100 transition">
+            Start Shopping
+          </button>
+        </Link>
+        <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+      </section>
+
+      {/* Filter Section */}
+      <section className="flex items-center justify-between mb-10 flex-wrap gap-4">
+        <h2 className="text-2xl font-semibold">All Products</h2>
+        <div className="flex items-center gap-3">
+          <select className="px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-black">
+            <option>Sort by: Featured</option>
+            <option>Price: Low to High</option>
+            <option>Price: High to Low</option>
+            <option>Newest</option>
+          </select>
+          <input
+            type="text"
+            placeholder="Search products..."
+            className="px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-black"
+          />
+        </div>
+      </section>
+
+      {/* Product Grid */}
+      {loading && <Loader text="Fetching products..." />}
+      {error && <ErrorMessage message={error} />}
+      {!loading && !error && <ProductGrid products={products} />}
     </div>
   );
-};
-
-export default Products;
+}
