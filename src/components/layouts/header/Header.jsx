@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import { FaShoppingCart, FaUser, FaBars, FaTimes, FaSearch } from "react-icons/fa";
 
@@ -9,9 +10,9 @@ export default function Header() {
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
         {/* Logo */}
-        <a href="/" className="text-2xl font-bold tracking-wide">
-          MyShop
-        </a>
+        <Link href="/" className="text-2xl font-bold">
+          Kwifa Demo
+        </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex gap-8 text-gray-700 font-medium">

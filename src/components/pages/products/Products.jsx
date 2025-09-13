@@ -1,78 +1,91 @@
-import { FaStar } from "react-icons/fa";
+import ProductCard from "./ProductCard";
+import product1 from "../../../../public/Images/product1.jpg";
+import product2 from "../../../../public/Images/product2.jpg";
+import product3 from "../../../../public/Images/product3.jpg";
+import product4 from "../../../../public/Images/product4.jpg";
+// import product5 from "../../../../public/Images/product5.png";
+import product6 from "../../../../public/Images/product6.jpg";
+import product7 from "../../../../public/Images/product7.png";
+// import product8 from "../../../../public/Images/product8.png";
 
-// Mock Products (replace with Shopify API later)
+
 const products = [
   {
-    id: 1,
-    name: "Product One",
-    price: 29.99,
-    image: "/p1.jpg", // put in public folder
+    title: "Classic Watch",
+    description: "A sleek, timeless watch for any occasion.",
+    price: 99.99,
+    image: product1,
+    handle: "classic-watch",
     rating: 4,
   },
   {
-    id: 2,
-    name: "Product Two",
+    title: "Leather Wallet",
+    description: "Premium leather wallet for your essentials.",
     price: 49.99,
-    image: "/p2.jpg",
+    image: product2,
+    handle: "leather-wallet",
     rating: 5,
   },
   {
-    id: 3,
-    name: "Product Three",
-    price: 19.99,
-    image: "/p3.jpg",
+    title: "Running Shoes",
+    description: "Comfortable running shoes with modern design.",
+    price: 79.99,
+    image: product3,
+    handle: "running-shoes",
+    rating: 4,
+  },
+  {
+    title: "Sunglasses",
+    description: "Stylish sunglasses with UV protection.",
+    price: 29.99,
+    image: product4,
+    handle: "sunglasses",
     rating: 3,
   },
   {
-    id: 4,
-    name: "Product Four",
+    title: "Backpack",
+    description: "Durable backpack for everyday use.",
     price: 59.99,
-    image: "/p4.jpg",
+    image: product1,
+    handle: "backpack",
     rating: 4,
   },
+  {
+    title: "Headphones",
+    description: "High-quality wireless headphones with noise cancellation.",
+    price: 129.99,
+    image: product6,
+    handle: "headphones",
+    rating: 5,
+  },
+  {
+    title: "Smartphone Stand",
+    description: "Adjustable smartphone stand for desk use.",
+    price: 19.99,
+    image: product7,
+    handle: "smartphone-stand",
+    rating: 4,
+  },
+  {
+    title: "Fitness Tracker",
+    description: "Track your activity and health with style.",
+    price: 89.99,
+    image: product2,
+    handle: "fitness-tracker",
+    rating: 5,
+  },
 ];
+
+
+
 const Products = () => {
   return (
     <div className="max-w-7xl mx-auto px-6 py-12">
       <h1 className="text-3xl font-bold mb-8">All Products</h1>
 
-      {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {products.map((product) => (
-          <div
-            key={product.id}
-            className="bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden"
-          >
-            {/* Product Image */}
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-56 object-cover"
-            />
-
-            {/* Product Info */}
-            <div className="p-4">
-              <h2 className="text-lg font-semibold">{product.name}</h2>
-              <p className="text-gray-600">${product.price}</p>
-
-              {/* Rating */}
-              <div className="flex items-center mt-2 text-yellow-500">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <FaStar
-                    key={i}
-                    className={
-                      i < product.rating ? "fill-yellow-500" : "fill-gray-300"
-                    }
-                  />
-                ))}
-              </div>
-
-              {/* Button */}
-              <button className="mt-4 w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition">
-                Add to Cart
-              </button>
-            </div>
-          </div>
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </div>

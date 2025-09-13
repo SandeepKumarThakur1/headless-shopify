@@ -7,7 +7,7 @@ export default function Footer() {
         
         {/* Brand / About */}
         <div>
-          <h2 className="text-2xl font-bold text-white mb-4">MyShop</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">Kwifa Demo</h2>
           <p className="text-sm leading-relaxed">
             We provide the best products at the best prices. 
             Quality and customer satisfaction are our top priorities.
