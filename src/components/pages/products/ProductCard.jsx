@@ -9,11 +9,11 @@ export default function ProductCard({ product }) {
     <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition overflow-hidden flex flex-col">
       {/* Product Image */}
       {image && (
-        <Image
+        <img
           src={image}
           alt={title}
-          width={300}
-          height={300}
+          // width={300}
+          // height={300}
           className="w-full h-64 object-cover"
         />
       )}
